@@ -8,7 +8,7 @@ import registerServiceWorker from "./registerServiceWorker";
 
 const defaultState = {
   appName: "conduit",
-  articles: null
+  articles: []
 };
 
 const reducer = function(state = defaultState, action) {
