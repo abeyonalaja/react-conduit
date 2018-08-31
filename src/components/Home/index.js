@@ -1,24 +1,39 @@
-import React from "react";
+import React, { Component } from "react";
 import MainView from "./MainView";
+import agent from "../../agent";
 import Banner from "./Banner";
 import { connect } from "react-redux";
 
-const Home = props => (
-  <div class="home-page">
-    <Banner appName={props.appName} />
-    <div class="container page">
-      <div class="row">
-        <MainView />
-        <div class="col-md-3">
-          <p>Popular Tags</p>
+class Home extends Component {
+  componentDidMount() {
+    this.props.onLoad(agent.Articles.all());
+  }
+  render() {
+    return (
+      <div className="home-page">
+        <Banner appName={this.props.appName} />
+        <div className="container page">
+          <div className="row">
+            <MainView />
+            <div className="col-md-3">
+              <p>Popular Tags</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-);
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   appName: state.appName
 });
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload => dispatch({ type: "HOME_PAGE_LOADED", payload })
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
