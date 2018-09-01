@@ -1,5 +1,6 @@
 import { applyMiddleware, createStore } from "redux";
 import { promiseMiddleware } from "./middleware";
+import rootReducer from "./reducers";
 
 const defaultState = {
   appName: "conduit",
@@ -16,6 +17,6 @@ const reducer = function(state = defaultState, action) {
 
 const middleware = applyMiddleware(promiseMiddleware);
 
-const store = createStore(reducer, middleware);
+const store = createStore(rootReducer, middleware);
 
 export default store;
