@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { onChangeEmail, onChangePassword, login } from "../actionCreators";
 
 class Login extends Component {
   render() {
@@ -19,6 +20,8 @@ class Login extends Component {
                       className="form-control form-control-lg"
                       type="email"
                       placeholder="Email"
+                      value={this.props.email}
+                      onChange={this.props.handleUpdateEmail}
                     />
                   </fieldset>
 
@@ -27,6 +30,8 @@ class Login extends Component {
                       className="form-control form-control-lg"
                       type="password"
                       placeholder="Password"
+                      value={this.props.password}
+                      onChange={this.props.handleUpdatePassword}
                     />
                   </fieldset>
 
@@ -46,4 +51,21 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({ ...state.auth });
+
+const mapDispatchToProps = dispatch => ({
+  handleUpdateEmail(event) {
+    dispatch(onChangeEmail(event.currentTarget.value));
+  },
+  handleUpdatePassword(event) {
+    dispatch(onChangePassword(event.currentTarget.value));
+  },
+  handleSubmit(event) {
+    event.preventDefault();
+    const email = this.state.email;
+    const password = this.state.password;
+    dispatch(login(email, password));
+  }
+});
+
+export default (mapStateToProps, mapDispatchToProps)(Login);

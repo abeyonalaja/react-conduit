@@ -6,9 +6,7 @@ import { connect } from "react-redux";
 
 class Home extends Component {
   componentDidMount() {
-    console.log("Did Mount");
     this.props.onLoad(agent.Articles.all());
-    console.log("Did Mount After");
   }
 
   render() {
